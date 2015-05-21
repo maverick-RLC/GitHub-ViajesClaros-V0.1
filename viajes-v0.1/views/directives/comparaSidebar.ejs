@@ -1,0 +1,20 @@
+<div class="comparaSidebar">
+	<md-sidenav  class="md-sidenav-left md-whiteframe-z2" id="sidebar-comparador" md-component-id="comparaSidenav">
+		<md-toolbar class="md-theme-light">
+			<p class="icon-container animated rotateIn" id="compare-icon"><i class="icon icon-comparar"></i></p>
+			<h3 class="md-toolbar-tools">COMPARA SERVIDORES PÚBLICOS</h3>
+		</md-toolbar>
+		<md-content class="md-padding">
+			<md-input-group tabindex="-1" label="FUNCIONARIO"  class="ng-isolate-scope md-default-theme ng-valid md-input-has-value" aria-invalid="false">
+				<label for="001" class="ng-binding">FUNCIONARIO</label>
+				<div funcionarios-text-search></div>
+			</md-input-group>
+				<ul class="to-compare">
+					<li ng-repeat="funcionario in funcionarios.selected" class="">
+						<p><i class="icon icon-comicion"></i> {{funcionario.nombre}} <a href="" ng-click="toggleFuncionario(funcionario)" class="del"><strong>x</strong></a></p>
+					</li>
+				</ul>
+			<md-button class="md-raised md-primary"><a href="/funcionario/comparar">COMPARAR</a></md-button>
+		</md-content>
+	</md-sidenav>
+</div>

@@ -1,0 +1,52 @@
+<div id="fb-root"></div>
+<script>
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&appId=1629957413897962&version=v2.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    window.twttr=(function(d,s,id){var t,js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);return window.twttr||(t={_e:[],ready:function(f){t._e.push(f)}})}(document,"script","twitter-wjs"));
+</script>
+
+<div id="comparar" ng-controller="compararCTL">
+	<h1>COMPARACIÓN ENTRE SERVIDORES PÚBLICOS</h1>
+	<div class="centered-content">
+		<div data-ng-if="funcionarios.length <= 0" class="no-results">
+			<h3>No hay funcionarios para comparar</h3>
+			<p><a href="" ng-click="toggleSidebar()" class="custom-button">Compara funcionarios <i class="icon icon-comparar"></i></a></p>
+		</div>
+		<div class="container-fluid" data-ng-if="funcionarios">
+			<div class="col-md-6" data-ng-repeat="funcionario in funcionarios | limitTo: 2">
+				<div class="inner-content">
+					<p><i class="icon icon-comicion"></i></p>
+					<div class="main-info">
+						<p><a data-ng-href="/funcionario/{funcionario.id}"><strong>{{funcionario.nombre_completo}}</strong></a></p>
+							<p data-ng-if="funcionario.cargo_nombre!=0">{{funcionario.cargo_nombre}}</p>
+					</div>
+					<div class="price">
+						<p class="quantity"><strong count-to="{{getTotal(funcionario.viajes)}}" value="{{gasto_parcial}}" duration="2" filter="currency"></strong></p>
+						<p><strong>GASTOS HASTA LA FECHA EN VIAJES</strong></p>
+					</div>
+					<div class="trip" ng-repeat="viaje in funcionario.viajes | orderBy:gasto_total | limitTo:1">
+						<h3>Viaje más costoso</h3>
+						<p class="quantity"><strong><a href="/viaje/{{viaje.id}}">{{viaje.gasto_total | currency}}</a></strong></p>
+						<p><strong>GASTO TOTAL</strong></p>
+					</div>
+					<div class="chart">
+						<p><i class="icon-calendar"></i></p>
+						<h3>Días de comisión vs. días en el IFAI</h3>							
+						<div class="charts-container">
+							<div id="radial-one{{$index}}" class="radial-chart blue"></div>
+							<div id="radial-two{{$index}}" class="radial-chart tur"></div>
+							<div class="clear"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

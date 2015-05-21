@@ -1,0 +1,137 @@
+<div id="viajes-filtros" ng-controller="viajeSearchCTL">
+	<script type="text/javascript">
+		window.viajes = <%- JSON.stringify(viajes) %>;
+        window.search_request = <%- JSON.stringify(search_request) %>;
+        window.catalog = <%- JSON.stringify(catalog) %>;
+        window.pagination = <%- JSON.stringify(pagination)%>;
+	</script>
+	<div class="centered-content">
+		<div class="container-fluid">
+            <h1 style="color: #5f5f5f">Filtrar viajes por :</h1>
+
+            <section layout="row" layout-sm="column" layout-align="center center" hide-sm>
+
+                <md-button class="md-raised" ng-click="setFilterOption(0)">
+                Transportacion
+                </md-button>
+
+                <md-button class="md-raised" ng-click="setFilterOption(1)">
+                Tipo de viaje
+                </md-button>
+
+                <md-button class="md-raised" ng-click="setFilterOption(2)">
+                    Destino
+                </md-button>
+            </section>
+            <section layout="row" hide-gt-sm>
+                <md-button class="md-raised" ng-click="setFilterOption(0)">
+                    Transportacion
+                </md-button>
+                <md-button class="md-raised" ng-click="setFilterOption(1)">
+                    Tipo de viaje
+                </md-button>
+            </section>
+            <section layout="column" layout-align="center center" ng-show="getFilterOption(0)" class="filter-option">
+                <a ng-click="search_request.pasaje_tipo = ''" ng-if="search_request.pasaje_tipo != ''" stop-event class="removeOption icon-cerrar">remover</a>
+                <ul>
+                    <li><md-checkbox ng-model="search_request.pasaje_tipo" ng-true-value="'terrestre'" ng-false-value="''" style="color:white"><span class="icon-terrestre">Terrestre</span></md-checkbox></li>
+                    <li><md-checkbox ng-model="search_request.pasaje_tipo" ng-true-value="'aereo'" ng-false-value="''" style="color:white"><span class="icon-vuelos">Aereo</span></md-checkbox></li>
+                </ul>
+            </section>
+            <section layout="column" layout-align="center center" ng-show="getFilterOption(1)" class="filter-option">
+                <a ng-click="search_request.tipo_viaje = ''" ng-if="search_request.tipo_viaje != ''" stop-event class="removeOption icon-cerrar">remover</a>
+                <ul>
+                    <li><md-checkbox ng-model="search_request.tipo_viaje" ng-true-value="'nacional'" ng-false-value="''" style="color:white">Nacional</md-checkbox></li>
+                    <li><md-checkbox ng-model="search_request.tipo_viaje" ng-true-value="'internacional'" ng-false-value="''"  style="color:white">Internacional</md-checkbox></li>
+                </ul>
+            </section>
+            <section layout="row" hide-gt-sm>
+                <md-button class="md-raised" ng-click="setFilterOption(2)">
+                    Destino
+                </md-button>
+                <md-button class="md-raised" ng-click="setFilterOption(3)">
+                    Tema
+                </md-button>
+            </section>
+            <section layout="column" layout-align="center center" ng-show="getFilterOption(2)" class="filter-option">
+                    <a ng-click="search_request.ciudad_destino = ''" ng-if="search_request.ciudad_destino != ''" stop-event class="removeOption icon-cerrar">remover</a>
+                    <select chosen ng-model="search_request.ciudad_destino" ng-options="destino.ciudad_destino as destino.ciudad_destino group by destino.pais_destino for destino in catalog.destinos"></select>
+            </section>
+            <section layout="row" layout-sm="column" layout-align="center center" hide-sm>
+
+                <md-button class="md-raised" ng-click="setFilterOption(3)">
+                Tema
+                </md-button>
+
+                <md-button class="md-raised" ng-click="setFilterOption(4)">
+                    Comisión
+                </md-button>
+
+                <md-button class="md-raised" ng-click="setFilterOption(5)">
+                    Hotel
+                </md-button>
+
+                <md-button class="md-raised md-primary" ng-click="submit()">Buscar</md-button>
+            </section>
+            <section layout="column" layout-align="center center" ng-show="getFilterOption(3)" class="filter-option">
+                    <a ng-click="search_request.tema = ''" ng-if="search_request.tema != ''" stop-event class="removeOption icon-cerrar">remover</a>
+                    <select chosen ng-model="search_request.tema" ng-options="tema.tema as tema.tema for tema in catalog.temas"></select>
+            </section>
+            <section layout="row" hide-gt-sm>
+                <md-button class="md-raised" ng-click="setFilterOption(4)">
+                    Comisión
+                </md-button>
+                <md-button class="md-raised" ng-click="setFilterOption(5)">
+                    Hotel
+                </md-button>
+            </section>
+            <section  layout="column" layout-align="center center" ng-show="getFilterOption(5)" class="filter-option">
+                    <a ng-click="search_request.hotel = ''" ng-if="search_request.hotel != ''" stop-event class="removeOption icon-cerrar">remover</a>
+                    <select chosen ng-model="search_request.hotel" ng-options="hotel.hotel as hotel.hotel for hotel in catalog.hoteles"></select>
+            </section>
+            <section  layout="column" layout-align="center center" ng-show="getFilterOption(4)" class="filter-option">
+                    <a ng-click="search_request.tipo_com = ''" ng-if="search_request.tipo_com != ''" stop-event class="removeOption icon-cerrar">remover</a>
+                    <select chosen ng-model="search_request.tipo_com" ng-options="comision.tipo_com as comision.tipo_com for comision in catalog.comisiones"></select>
+            </section>
+            <section layout="column" hide-gt-sm>
+                <md-button class="md-raised md-primary" ng-click="submit()">Buscar</md-button>
+            </section>
+
+            <div class="col-xs-12">
+                <h2 class="text-center"><strong><%- title %></strong></h2>
+            </div>
+
+            <div class="col-xs-12 row trips">
+				<div class="inner-content-list">
+			        <div class="row trip-item ranks " ng-repeat="viaje in viajes">
+			            <div class="col-sm-4 top-places">
+			                <div class="inner-content">
+			                    <a href="{{'/viaje/'+viaje.id}}"><img src="/images/pinlugar.png" alt="" class="picture" /></a>
+                                <p class="big-blue">{{viaje.funcionario.nombre_completo}} <a href="" ng-click="toggleFuncionario(viaje.funcionario)" class="comparar-button"><i class="icon icon-comparar"></i></a></p>
+                                <p class="big-blue">{{viaje.gasto_total | currency}}</p>
+                                <p ng-if="viaje.hotel != 'No disponible'" class="hotel">{{viaje.hotel}}</p>
+			                    <p class="location"><a href="#"><strong>{{viaje.ciudad_destino}}, {{viaje.pais_destino}}</strong></a></p>
+			                    <p class="activity">{{viaje.evento | limitTo:50}}</p>
+			                </div>
+			            </div>
+			            <div class="col-sm-4 duration">
+			                <div class="inner-content">
+			                    <i class="icon-calendar"></i>
+			                    <p><strong>Duracion del viaje:</strong></p>
+			                    <p>{{getDateString(viaje)}}</p>
+			                </div>
+			            </div>
+			            <div class="col-sm-4">
+			                <div class="inner-content"><a href="{{'/viaje/'+viaje.id}}" class="custom-button">Ver detalle del viaje</a></div>
+			            </div>
+			        </div>
+
+			    </div>
+			</div>
+            <div class="col-xs-12">
+                <pagination direction-links="false" total-items="pagination.total" ng-model="pagination.currentPage" items-per-page="pagination.pageSize" ng-change="pageChanged()"></pagination>
+            </div>
+
+		</div>
+	</div>
+</div>

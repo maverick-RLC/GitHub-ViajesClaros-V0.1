@@ -1,0 +1,12 @@
+<div class="jumbotron" ng-show="toggleJumbotron">
+	<div class="content-jumbotron">
+		<div class="text-jumbotron">
+			<a href="/"><img src="/images/logosolo.png" alt="logo" class="logo"></a>
+			<h1><strong>Viajes</strong>Claros</h1>
+			<p>Conoce los gastos y resultados de los viajes de trabajo de todos los servidores públicos del IFAI.</p>
+			<p class="total-viajes"><span count-to="{{totalViajes}}" value="{{gasto_parcial}}" duration="1" type="int"></span> viajes realizados en 2014 a 2015</p>
+			<a href="#" class="custom-button bordered" ng-click="toggleJumbotron = !toggleJumbotron">Ver mapa</a>
+		</div>
+		<a href="#" class="close-arrow" ng-click="toggleJumbotron = !toggleJumbotron"><img src="/images/flecha-up.png" alt=""></a>
+	</div>
+</div>

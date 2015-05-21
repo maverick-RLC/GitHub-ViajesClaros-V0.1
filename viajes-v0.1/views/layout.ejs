@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% if(typeof title != 'undefined'){ %>
+        <title>ViajesClaros | <%- title %></title>
+        <meta property="og:title"content="ViajesClaros | <%- title %>" />
+    <%}else{ %>
+        <title>ViajesClaros</title>
+        <meta property="og:title"content="ViajesClaros" />
+    <% } %>
+    <meta property="og:url" content="<%- req.protocol + '://' + req.get('host') + req.originalUrl %>" />
+    <% if(typeof description != 'undefined'){ %>
+        <meta property="og:description" content="<%- description %>" />
+    <% }%>
+    <meta property="og:image" content="<%- req.protocol + '://' + req.get('host') %>/images/screen.jpg" />
+    <meta name="description" content="Conoce los gastos y resultados de los viajes de trabajo de todos los servidores públicos del IFAI.">
+
+    
+
+    <!-- Viewport mobile tag for sensible mobile support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+    <!--STYLES-->
+    <link rel="stylesheet" href="/styles/fontello.css">
+    <link rel="stylesheet" href="/styles/importer.css">
+    <link rel="stylesheet" href="/styles/reset.css">
+    <link rel="stylesheet" href="/styles/stickyFooter.css">
+    <link rel="stylesheet" href="/styles/style-d3.css">
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bower_components/leaflet/dist/leaflet.css">
+    <link rel="stylesheet" href="/bower_components/bootstrap-touch-carousel/dist/css/bootstrap-touch-carousel.css">
+    <link rel="stylesheet" href="/bower_components/leaflet.markerclusterer/dist/MarkerCluster.Default.css">
+    <link rel="stylesheet" href="/bower_components/leaflet.markerclusterer/dist/MarkerCluster.css">
+    <link rel="stylesheet" href="/bower_components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.css">
+    <link rel="stylesheet" href="/bower_components/animate.css/animate.min.css">
+    <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
+    <link rel="stylesheet" href="/bower_components/chosen/chosen.min.css">
+    <!--STYLES END-->
+  </head>
+
+  <body ng-app="viajesTransparentes">
+    <div ng-cloak class="ng-cloak" id="wrap" >
+        <div id="main" class="clearfix"><div id="topBackRepeat">
+        
+        <script type="text/ng-template" id="comparaSidebar.html">
+            <%- partial('directives/comparaSidebar') -%>
+        </script>
+        <script type="text/ng-template" id="typeahead-template.html">
+            <a tabindex="-1">
+                <span bind-html-unsafe="match.model.nombre_completo | typeaheadHighlight:query"></span>
+                <small bind-html-unsafe="match.model.cargo_nombre"></small>
+            </a>
+        </script>
+        <div compara-sidebar></div>
+        <%- partial('global/header') -%>
+            <div id='content'>
+                <%- partial('global/lateral') -%>
+                <%- body %>
+                <div class='clear'></div>
+            </div>
+        </div>   
+        <div class='clear'></div>   
+    </div><div class='clear'></div></div> 
+    <%- partial('global/footer') -%>
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-60299200-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    <!--SCRIPTS-->
+    <script src="/js/dependencies/sails.io.js"></script>
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/hammerjs/hammer.js"></script>
+    <script src="/bower_components/angular-animate/angular-animate.js"></script>
+    <script src="/bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="/bower_components/angular-aria/angular-aria.js"></script>
+    <script src="/bower_components/angular-material/angular-material.js"></script>
+    <script src="/bower_components/angular-perfect-scrollbar/src/angular-perfect-scrollbar.js"></script>
+    <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="/bower_components/bootstrap-touch-carousel/dist/js/bootstrap-touch-carousel.js"></script>
+    <script src="/bower_components/d3/d3.min.js"></script>
+    <script src="/bower_components/raphael/raphael-min.js"></script>
+    <script src="/bower_components/morris/morris.min.js"></script>
+    <script src="/bower_components/leaflet/dist/leaflet.js"></script>
+    <script src="/bower_components/leaflet.markerclusterer/dist/leaflet.markercluster.js"></script>
+    <script src="/bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.min.js"></script>
+    <script src="/bower_components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.min.js"></script>
+    <script src="/bower_components/angular-chosen-localytics/chosen.js"></script>
+    <script src="/bower_components/ng-file-upload/angular-file-upload-all.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/canvasjs.min.js"></script>
+    <script src="/js/chart.min.js"></script>
+    <script src="/js/controllers/controller.js"></script>
+    <script src="/js/controllers/funcionarioController.js"></script>
+    <script src="/js/controllers/homeController.js"></script>
+    <script src="/js/controllers/viajeController.js"></script>
+    <script src="/js/d3.min.js"></script>
+    <script src="/js/directives/comparaSidebar.js"></script>
+    <script src="/js/directives/funcionariosTextSearch.js"></script>
+    <script src="/js/directives/internalDirectives.js"></script>
+    <script src="/js/radialProgress.js"></script>
+    <script src="/js/services/internalServices.js"></script>
+    <script src="/js/services/userInfo.js"></script>
+    <!--SCRIPTS END-->
+  </body>
+</html>

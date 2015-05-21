@@ -1,0 +1,20 @@
+<div id="home">
+	<div class="container-fluid" ng-controller="statisticsCTL">
+		<div class="row ranks">
+			<div class="col-md-6 top-places top-hotels">
+				<div class="inner-content">
+					<a href="#" class="get-iframe" data-toggle="modal" data-target="#modal-code" title="Compartir gráfica" ng-click="openWidgetModal('/widget/hoteles')"><i class="icon icon-codigo"></i></a>
+					<h4><strong>Hoteles más visitados</strong><br/>por los servidores públicos</h4>
+					<ul>
+						<li ng-repeat="hotel in hotelList">
+							<a><img src="/images/hotel_icon.png" alt="" class="picture" /></a>
+							<p class="place"><a href="/viajes?hotel={{hotel.hotel}}">{{hotel.hotel}}</a></p>
+							<p class="location"><a href="#">{{hotel.ciudad_destino}}, {{hotel.pais_destino}}</a></p>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>		
+	</div>
+</div>
+

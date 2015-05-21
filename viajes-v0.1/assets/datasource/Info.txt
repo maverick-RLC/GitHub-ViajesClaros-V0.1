@@ -1,0 +1,9 @@
+Pasos para cargar informacion de csv
+
+1. Crear base de datos
+2. Crear tablas ( create_viajes_db.sql )
+3. Importar datos a tabla viajes_dump
+4. Correr inserts y updates ( create_viajes_db.sql )
+5. Una vez cargados los datos correr la aplicacion e ingresar a la url : url_viajes/service/updateLongitudViajes ,
+    es importante revisar que haya cargado todos los destinos ,el script no dice si ya acabo con todos solo si hizo los que se le indicaron actualizar ,
+    el servicio de google tiene restricciones de llamadas por minuto por esa razon se tuvo que hacer en grupos de 10 en 10.

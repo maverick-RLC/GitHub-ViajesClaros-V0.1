@@ -1,0 +1,39 @@
+<div ng-controller="globalCTL" class="global-ctl">
+<md-sidenav  class="md-sidenav-left md-whiteframe-z2" id="sidebar-comparador" md-component-id="comparaSidenav">
+  <md-toolbar class="md-theme-light">
+  	<p class="icon-container animated rotateIn" id="compare-icon"><i class="icon icon-comparar"></i></p>
+    <h3 class="md-toolbar-tools">COMPARA SERVIDORES PÚBLICOS</h3>
+  </md-toolbar>
+  <md-content class="md-padding">
+	<md-input-group tabindex="-1" label="FUNCIONARIO"  class="ng-isolate-scope md-default-theme ng-valid md-input-has-value" aria-invalid="false">
+	<label for="001" class="ng-binding">FUNCIONARIO</label>
+	<form action="/funcionario/comparar" method="GET" ng-submit="validateForm()" id="comparadorFormLateral">
+		<input 
+			id="001"
+			ng-model="fun"
+			type="text" tabindex="false"
+			aria-invalid="false"
+			aria-disabled="false"
+			class="ng-valid ng-dirty ng-valid-parse ng-touched"
+			typeahead="funcionario for funcionario in funcionariosAJAX($viewValue) | filter:$viewValue | limitTo: 6"
+			typeahead-min-length='1'
+			typeahead-on-select='onSelectComparador($item, $model, $label)'
+	        typeahead-template-url="typeahead-template.html"
+			typeahead-focus-first="false"
+			placeholder="Buscar servidor público"
+			onfocus="this.placeholder=''"
+			onblur="this.placeholder='Buscar servidor público'"
+		/>
+		<input type="hidden" name="first_id" ng-value="funcOne">
+		<input type="hidden" name="second_id" ng-value="funcTwo">
+	</form>
+   </md-input-group>
+   	  <ul class="to-compare">
+   	  	<li ng-repeat="fun in funcionariosComparador" class="animated fadeIn">
+   	  		<p><i class="icon icon-comicion"></i> {{fun.nombre_completo}} <a href="#" ng-click="removeFromComp(fun)" class="del"><strong>x</strong></a></p>
+   	  	</li>
+   	  </ul>
+	  <md-button class="md-raised md-primary" ng-click="submitComparador()">COMPARAR</md-button>
+  </md-content>
+</md-sidenav>
+</div>

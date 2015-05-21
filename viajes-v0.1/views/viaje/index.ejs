@@ -1,0 +1,335 @@
+<div id="fb-root"></div>
+<script>
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&appId=1629957413897962&version=v2.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    window.twttr=(function(d,s,id){var t,js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);return window.twttr||(t={_e:[],ready:function(f){t._e.push(f)}})}(document,"script","twitter-wjs"));
+</script>
+
+<div id="viaje"  ng-controller="viajeCTL">
+	<div class="centered-content">
+        <script type="text/javascript">
+            window.funcionario = <%- JSON.stringify(funcionario) %>;
+            window.viaje = <%- JSON.stringify(viaje) %>;
+        </script>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12">
+					<%- partial('partial/menuviaje')%>
+					<p class="breadcrumb-custom"><a href="/">Inicio</a> | <a href="/funcionario/{{funcionario.id}}" class="capitalize">{{funcionario.nombre_completo}}</a> | <a href="#" class="active">{{viaje.evento | limitTo:60}}{{viaje.evento.length > 60 ? '...' : ''}}</a></p>
+				</div>
+			</div>
+			<div class="row travel-title">
+				<div class="col-md-6 travel-name">
+					<div class="inner-content">
+						<h1>{{viaje.evento}}</h1>
+						<h2>Gasto total del viaje: <strong>{{viaje.gasto_total | currency}}</strong></h2>
+						<p ng-show="viaje.evento_url != 'No disponible'">
+							<a href="{{viaje.evento_url}}">{{viaje.evento_url}}</a>
+						</p>
+						<p ng-show="viaje.evento_url == 'No disponible'">
+							<a>URL del evento no disponible</a>
+						</p>
+					</div>
+				</div>
+				<div class="col-md-6 date">
+					<div class="inner-content">
+						<p>
+							<i class="icon-calendar calendar"></i>
+							<p><strong>Duración del viaje:</strong></p>
+							<p>{{viaje.fecha_inicio_part}} al {{viaje.fecha_fin_part}}</p>
+						</p>
+						<div class="clear"></div>
+						<div class="container-fluid">
+							<div class="share-links">
+								<div class="row">
+									<div class="col-sm-6">
+										<a href="#" ng-click="fbShare('<%- fullUrl %>')" class="share-link fb"><i class="icon-face"></i> Compartir</a>
+		                            </div>
+									<div class="col-sm-6">
+										<a 
+	                                    ng-href='https://twitter.com/intent/tweet/?text=Ve los detalles del viaje de {{funcionario.nombre_completo}} en &hashtags=ViajesClaros&url=<%- fullUrl %>' 
+					                  	target="_blank"
+					                  	class="share-link tw"
+					                  	>
+										<i class="icon-twit"></i>
+										 Compartir
+										</a>
+		                            </div>
+		                            <div class="clear"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row travel-info panel-group" id="travel-info">
+				<div class="col-md-6 column">
+					<div class="info-box panel panel-default" id="seccion1">
+						<div class="panel-heading">
+							<div class="panel-title">
+								<h4><a href="#collapse1" data-toggle="collapse" parent="#travel-info">
+									<i class="icon-vuelos"></i>
+									Comisión 
+									<i class="icon icon-flecha"></i></a>
+								</h4>
+							</div>
+						</div>
+						<div class="inner-content panel-collapse collapse in" id="collapse1">
+							<p class="info-icon"><i class="icon-vuelos"></i></p>
+							<h4>Comisión</h4>
+							<ul>
+								<li><p><strong>Mecanismo que origina la comisión</strong></p><p>{{viaje.mec_origen}}</p></li>
+								<li><p><strong>Quién invita / Quién solicita</strong></p><p>{{viaje.institucion_genera}}</p></li>
+								<li><p><strong>Unidad responsable</strong></p><p>{{viaje.UR}}</p></li>
+								<li><p><strong>Tipo de representación</strong></p><p>{{viaje.tipo_rep}}</p></li>
+								<li><p><strong>Motivo de la comisión</strong></p><p>{{viaje.motivo}}</p></li>
+								<li><p><strong>Antecedentes</strong></p><p>{{viaje.antecedente}}</p></li>
+								<li><p><strong>Tipo viaje</strong></p><p>{{viaje.tipo_viaje}}</p></li>
+								<li><p><strong>Número de acuerdo autorización</strong></p><p>{{viaje.acuerdo}}</p></li>
+								<li><p><strong>Número de oficio</strong></p><p>{{viaje.oficio}}</p></li>
+								<li><p><strong>País de origen</strong></p><p>{{viaje.pais_origen}}</p></li>
+								<li><p><strong>Estados de origen</strong></p><p>{{viaje.estado_origen}}</p></li>
+								<li><p><strong>Ciudad de origen</strong></p><p>{{viaje.ciudad_origen}}</p></li>
+								<li><p><strong>País de destino</strong></p><p>{{viaje.pais_destino}}</p></li>
+								<li><p><strong>Estados de destino</strong></p><p>{{viaje.estado_destino}}</p></li>
+								<li><p><strong>Ciudad de destino</strong></p><p>{{viaje.ciudad_destino}}</p></li>
+
+							</ul>							
+						</div>
+					</div>
+					<div class="info-box panel panel-default" id="seccion2">
+						<div class="panel-heading">
+							<div class="panel-title">
+								<h4><a href="#collapse2" data-toggle="collapse" parent="#travel-info">
+									<i class="icon-tipodeviaje"></i>
+									Tipo de viaje 
+									<i class="icon icon-flecha"></i>
+								</a>							
+								</a></h4>
+							</div>
+						</div>
+						<div class="inner-content panel-collapse collapse in" id="collapse2">
+							<p class="info-icon"><i class="icon-tipodeviaje"></i></p>
+							<h4>Tipo de viaje</h4>
+							<ul>
+								<li><p><strong>Tipo viaje</strong></p><p>{{viaje.tipo_viaje}}</p></li>
+								<li><p><strong>Número de acuerdo autorización</strong></p><p>{{viaje.acuerdo}}</p></li>
+								<li><p><strong>Número de oficio</strong></p><p>{{viaje.oficio}}</p></li>
+								<li><p><strong>País de origen</strong></p><p>{{viaje.pais_origen}}</p></li>
+								<li><p><strong>Estados de origen</strong></p><p>{{viaje.estado_origen}}</p></li>
+								<li><p><strong>Ciudad de origen</strong></p><p>{{viaje.ciudad_origen}}</p></li>
+								<li><p><strong>País de destino</strong></p><p>{{viaje.pais_destino}}</p></li>
+								<li><p><strong>Estados de destino</strong></p><p>{{viaje.estado_destino}}</p></li>
+								<li><p><strong>Ciudad de destino</strong></p><p>{{viaje.ciudad_destino}}</p></li>
+							</ul>
+						</div>
+					</div>
+					<div class="info-box panel panel-default" id="seccion5">
+						<div class="panel-heading">
+							<div class="panel-title">
+								<h4>
+									<a href="#collapse5" data-toggle="collapse" parent="#travel-info">
+										<i class="icon-viaticos"></i>
+										Viáticos 
+										<i class="icon icon-flecha"></i>
+									</a>
+								</h4>
+							</div>
+						</div>
+						<div class="inner-content panel-collapse collapse in" id="collapse5">
+							<p class="info-icon"><i class="icon-viaticos"></i></p>
+							<h4>Viáticos</h4>
+							<ul>
+								<li><p><strong>Gasto por viáticos m.n.</strong></p><p>{{viaje.gasto_viatico | currency}}</p></li>
+								<li><p><strong>Institución que cubre el hospedaje</strong></p><p>{{viaje.inst_hospedaje}}</p></li>
+								<li><p><strong>Nombre del hotel</strong></p><p>{{viaje.hotel}}</p></li>
+								<li><p><strong>Fecha de entrada</strong></p><p>{{viaje.fecha_inicio_hotel}}</p></li>
+								<li><p><strong>Fecha de salida</strong></p><p>{{viaje.fecha_fin_hotel}}</p></li>
+								<li><p><strong>Costo total del hospedaje</strong></p><p>{{viaje.costo_hotel | currency}}</p></li>
+								<li><p><strong>Monto comprobado de viáticos</strong></p><p>{{viaje.viatico_comprobado | currency}}</p></li>
+								<li><p><strong>Monto de viáticos sin comprobación</strong></p><p>{{viaje.viatico_sin_comprobar | currency}}</p></li>
+								<li><p><strong>Monto de viáticos devueltos</strong></p><p>{{viaje.viatico_devuelto | currency}}</p></li>
+								<li><p><strong>Tarifa diaria para viáticos</strong></p><p>{{viaje.tarifa_diaria | currency}}</p></li>
+								<li><p><strong>Moneda</strong></p><p>{{viaje.moneda}}</p></li>
+							</ul>
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="col-md-6 column">
+					<div class="info-box panel panel-default" id="seccion6">
+						<div class="panel-heading">
+							<div class="panel-title">
+								<h4>
+									<a href="#collapse6" data-toggle="collapse" parent="#travel-info">
+										<i class="icon-comicion"></i>
+										Puesto 
+										<i class="icon icon-flecha"></i>								
+									</a>
+								</h4>
+							</div>
+						</div>
+						<div class="inner-content panel-collapse collapse in" id="collapse6">
+							<p class="info-icon"><i class="icon-comicion"></i></p>
+							<h4>Puesto</h4>
+							<ul>
+								<li><p><strong>Número de comisión</strong></p><p>{{viaje.consecutivo}}</p></li>
+								<li><p><strong>Servidor público comisionado</strong></p><p><a class="capitalize" href="/funcionario/{{funcionario.id}}">{{funcionario.nombre_completo}}</a> <a href="" ng-click="toggleFuncionario(viaje.funcionario)" class="comparar-button"><i class="icon icon-comparar"></i></a></p></li>
+								<li><p><strong>Cargo</strong></p><p>{{funcionario.cargo_nombre}}</p></li>
+								<li><p><strong>Institucion</strong></p><p>{{funcionario.institucion}}</p></li>
+							</ul>
+						</div>
+					</div>
+					<div class="info-box  panel panel-default" id="seccion8">
+						<div class="panel-heading">
+							<div class="panel-title">
+								<h4>
+									<a href="#collapse8" data-toggle="collapse" parent="#travel-info">
+										<i class="icon-tema"></i>
+										Evento 
+										<i class="icon icon-flecha"></i>									
+									</a>
+								</h4>
+							</div>
+						</div>
+						<div class="inner-content panel-collapse collapse in" id="collapse8">
+							<p class="info-icon"><i class="icon-tema"></i></p>
+							<h4>Evento</h4>
+							<ul>
+								<li><p><strong>Tema</strong></p><p>{{viaje.tema}}</p></li>
+								<li><p><strong>Tipo de comisión</strong></p><p>{{viaje.tipo_com}}</p></li>
+								<li><p><strong>Nombre del evento o actividad</strong></p><p>{{viaje.evento}}</p></li>
+								<li><p><strong>URL del evento</strong></p><p>{{viaje.evento_url}}</p></li>
+							</ul>
+						</div>
+					</div>
+					<div class="info-box panel panel-default" id="seccion9">
+						<div class="panel-heading">
+							<div class="panel-title">
+								<h4>
+									<a href="#collapse9" data-toggle="collapse" parent="#travel-info">
+										<i class="icon icon-actividades"></i>
+										Informe de comisión
+										<i class="icon icon-flecha"></i>
+									</a>
+								</h4>
+							</div>
+						</div>
+						<div class="inner-content panel-collapse collapse in" id="collapse9">
+							<p class="info-icon"><i class="icon-actividades"></i></p>
+							<h4>Informe de comisión</h4>							
+							<ul>
+								<li><p>{{viaje.actividad}}</p></li>
+								<li><p><strong>Resultados obtenidos</strong></p><p>{{viaje.resultado}}</p></li>
+								<li><p><strong>Contribucion </strong></p><p>{{viaje.contribucion_ifai}}</p></li>
+								<li><p><strong>Link al comunicado</strong></p><p><a href="{{viaje.url_comunicado}}">{{viaje.url_comunicado}}</a></p></li>
+							</ul>
+						</div>
+					</div>
+					<div class="info-box panel panel-default" ng-if="viaje.pasaje_tipo == 'Aéreo'" id="seccion10">
+						<div class="panel-heading">
+							<div class="panel-title">
+								<h4>
+									<a href="#collapse10" data-toggle="collapse" parent="#travel-info">
+										<i class="icon-vuelos"></i>
+										Información de vuelo 
+										<i class="icon icon-flecha"></i>	
+									</a>
+								</h4>
+							</div>
+						</div>
+						<div class="inner-content panel-collapse collapse in" id="collapse10">
+							<p class="info-icon"><i class="icon-vuelos"></i></p>
+							<h4>Información de vuelo</h4>
+							<ul>
+								<li><p><strong>Institución que cubre el pasaje</strong></p><p>{{viaje.pasaje_cubre}}</p></li>
+								<li><p><strong>Tipo de pasaje</strong></p><p>{{viaje.pasaje_tipo}}</p></li>
+								<li><p><strong>Aerolinea de ida</strong></p><p>{{viaje.linea_origen}}</p></li>
+								<li><p><strong>Aerolinea de regreso</strong></p><p>{{viaje.linea_regreso}}</p></li>
+								<li><p><strong>Número de vuelo de ida</strong></p><p>{{viaje.vuelo_origen}}</p></li>
+								<li><p><strong>Número de vuelo de regreso</strong></p><p>{{viaje.vuelo_regreso}}</p></li>
+								<li><p><strong>Fecha inicio comisión</strong></p><p>{{viaje.fecha_inicio_part}}</p></li>
+								<li><p><strong>Fecha termino comisión</strong></p><p>{{viaje.fecha_fin_part}}</p></li>
+								<li><p><strong>Gasto por pasajes en m.n.</strong></p><p>{{viaje.gasto_pasaje | currency}}</p></li>
+							</ul>
+						</div>
+					</div>	
+					<div class="info-box panel panel-defualt" ng-if="viaje.pasaje_tipo == 'Terrestre'" id="seccion10">
+						<div class="panel-heading">
+							<div class="panel-title">
+								<h4>
+									<a href="#collapse10" data-toggle="collapse" parent="#travel-info">
+										<i class="icon-vuelos"></i>
+										Información de viaje 
+										<i class="icon icon-flecha"></i>	
+									</a>
+								</h4>
+							</div>
+						</div>
+						<div class="inner-content panel-collapse collapse in" id="collapse10">
+							<p class="info-icon"><i class="icon-vuelos"></i></p>
+							<h4>Información de viaje</h4>
+							<ul>
+								<li><p><strong>Institución que cubre el pasaje</strong></p><p>{{viaje.pasaje_cubre}}</p></li>
+								<li><p><strong>Tipo de pasaje</strong></p><p>{{viaje.pasaje_tipo}}</p></li>
+								<li><p><strong>Fecha inicio comisión</strong></p><p>{{viaje.fecha_inicio_com}}</p></li>
+								<li><p><strong>Fecha termino comisión</strong></p><p>{{viaje.fecha_fin_com}}</p></li>
+								<li><p><strong>Gasto por pasajes en m.n.</strong></p><p>{{viaje.gasto_pasaje | currency}}</p></li>
+							</ul>
+						</div>
+					</div>	
+					<div class="info-box panel panel-default" id="seccion11">
+						<div class="panel-heading">
+							<div class="panel-title">
+								<h4>
+									<a href="#collapse11" data-toggle="collapse" parent="#travel-info">
+										<i class="icon icon-observaciones"></i>
+										Observaciones 
+										<i class="icon icon-flecha"></i>
+									</a>
+								</h4>
+							</div>
+						</div>
+						<div class="inner-content panel-collapse collapse in" id="collapse11">
+							<p class="info-icon"><i class="icon-observaciones"></i></p>
+							<h4>Observaciones</h4>							
+							<ul>
+								<li><p>{{viaje.observaciones}}</p></li>
+							</ul>
+						</div>
+					</div>
+				</div>			
+			</div>
+            <% if (viajes.length > 0) { %>
+			<div class="row top-people">
+				<h2>Servidores públicos que asistieron a este evento</h2>
+				<%
+                for(var i=0;i<viajes.length;i++){
+                    var viajeAux = viajes[i];
+                %>
+					<div class="col-sm-4 person">
+							<div class="person-content">
+								<img src="/images/funcionario-default.png" alt="" class="picture">
+								<p class="name"><%- viajeAux.funcionario.nombre_completo %></p>
+								<p class="charge"><%- viajeAux.funcionario.cargo_nombre != 0 ? viajeAux.funcionario.cargo_nombre : "no disponible" %></p>
+								<p class="dependency"><%- viajeAux.funcionario.institucion != 0 ? viajeAux.funcionario.institucion : "no disponible" %></p>
+								<p class="money">$ <%- viajeAux.gasto_total.toFixed(2) %></p>
+								<p class="gray">Gasto</p>
+								<a href="/viaje/<%- viajeAux.id %>" class="custom-button">Ver viaje</a>
+							</div>
+					</div>
+				<% } %>
+
+				<div class="clear"></div>
+			</div>
+            <% } %>
+		</div>
+	</div>
+</div>
+

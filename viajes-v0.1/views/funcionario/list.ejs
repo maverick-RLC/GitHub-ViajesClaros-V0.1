@@ -1,0 +1,49 @@
+<div id="list" ng-controller="listadoCTL">
+    <script type="text/javascript">
+        window.count = <%- JSON.stringify(count) %>;
+        window.page = <%- JSON.stringify(page) %>;
+        window.siteUrl = <%- JSON.stringify(siteUrl) %>;
+        window.funcionarios = <%- JSON.stringify(funcionarios) %>;
+    </script>
+    <div class="centered-content">
+        <div class="container-fluid">
+        	<div class="row results">
+                <div class="inner-content-list">
+            		<h2><strong>Todos los funcionarios</strong></h2>
+                    <% for(i=0;i<funcionarios.length;i++){
+                        var funcionario = funcionarios[i];
+                        var mappedViajes = _.map(funcionario.viajes,function(el) {
+                            return el.gasto_total;
+                        });
+                        var sum = _.reduce(mappedViajes,function(sum,num){
+                            return sum + num;
+                        });
+
+                        var text_total = funcionario.viajes.length ? sum : "0.00";
+                    %>
+                    <div class="row trip-item ranks ">
+                        <div class="col-sm-4 top-places">
+                            <div class="inner-content">
+                                <a href="/funcionario/<%- funcionario.id %>"><img src="/images/funcionario-default.png" alt="" class="picture" /></a>
+                                <p class="big-blue"><a href="/funcionario/<%- funcionario.id %>"><%- funcionario.nombre_completo %></a></p>
+                                <p class="location"><strong>Cargo: </strong> <%- funcionario.cargo_nombre %></p>
+                                <p class="location"><strong>Institucion: </strong> <%- funcionario.institucion %></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 second">
+                            <div class="inner-content">
+                                <p><strong>Gasto total en viajes:</strong></p>
+                                <p filter="currency"><%- text_total %></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                             <div class="inner-content"><a href="/funcionario/<%- funcionario.id %>" class="custom-button">Ver perfil</a></div>
+                        </div>
+                    </div>
+                    <% } %>
+                </div>
+                <pagination total-items="totalItems" items-per-page="10" ng-model="currentPage" ng-change="pageChanged()" max-size="8" rotate="false" previous-text="Anterior" next-text="Siguiente" first-text="Primero" last-text="Ultimo" boundary-links="true" ></pagination>
+        	</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,71 @@
+<div id="comparador-popup" ng-controller="comparadorCTL" ng-show="toggleComparador">
+	<p id="close-comparador-cont" >
+		<a href="#" id="close-comparador" ng-click="toggleComparador = !toggleComparador"><i class="icon icon-cerrar"></i></a>
+	</p>
+	<div class="centered-layer">
+		<div class="centered-content">
+			<h2>COMPARA SERVIDORES PÚBLICOS</h2>
+			<div class="container-fluid">
+				<form action="/funcionario/comparar" method="GET" ng-submit="validateForm()" id="comparadorFormLateral">
+					<div class="col-md-5">
+						<p><i class="icon icon-comicion"></i></p>
+						<p>
+							<input 
+							type="text" 
+							placeholder="Buscar servidor público"
+							onfocus="this.placeholder=''"
+							onblur="this.placeholder='Buscar servidor público'"
+							ng-model="funcOne"
+							typeahead="funcionario as funcionario.nombre_completo for funcionario in funcionariosAJAX($viewValue) | filter:$viewValue | limitTo:6 "
+							typeahead-min-length='1'
+							typeahead-on-select='onSelectPart($item, $model, $label)'
+							>
+							<input type="hidden" name="first_id" value="{{funcOne.id}}">
+						</p>
+						<p ng-if="funcOne.id">{{funcOne.cargo_nombre != 0 ? funcOne.cargo_nombre : "no disponible"}}</p>
+					</div>
+					<div class="col-md-2 hidden-xs">
+						<div class="circle animated rotateIn"><p><i ng-click="submitForm()" class="icon icon-comparar"></i></p></div>
+						<p>
+							<input
+							type="submit"
+					 		ng-disabled="!validateForm()"
+					 		value="COMPARAR"
+					 		class="custom-button bordered"
+					 		>
+					 	</p>
+					</div>
+					<div class="col-md-5">
+						<p><i class="icon icon-comicion"></i></p>
+						<p>
+							<input 
+							type="text" 
+							placeholder="Buscar servidor público"
+							onfocus="this.placeholder=''"
+							ng-model="funcTwo"
+							onblur="this.placeholder='Buscar servidor público'"
+							typeahead="funcionario as funcionario.nombre_completo for funcionario in funcionariosAJAX($viewValue) | filter:$viewValue | limitTo:6 "
+							typeahead-min-length='1'
+							typeahead-on-select='onSelectPart($item, $model, $label)'
+							>
+							<input type="hidden" name="second_id" value="{{funcTwo.id}}">
+
+						</p>
+						<p ng-if="funcTwo.id">{{funcTwo.cargo_nombre != 0 ? funcTwo.cargo_nombre : "no disponible"}}</p>
+					</div>
+					<div class="col-md-2 visible-xs-block">
+						<div class="circle animated rotateIn"><p><i ng-click="submitForm()" class="icon icon-comparar"></i></p></div>
+						<p>
+							<input
+							type="submit"
+					 		ng-disabled="!validateForm()"
+					 		value="COMPARAR"
+					 		class="custom-button bordered"
+					 		>
+					 	</p>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

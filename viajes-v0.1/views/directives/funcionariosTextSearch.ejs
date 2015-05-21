@@ -1,0 +1,16 @@
+<input 
+	autocomplete="off"
+	type="text"
+	name="filtro"
+	id="filtro"
+	placeholder="Buscar servidor público"
+	onfocus="this.placeholder=''"
+	onblur="this.placeholder='Buscar servidor público'"
+	ng-model="func"
+	typeahead="funcionario as funcionario.nombre_completo for funcionario in loadFuncionarios($viewValue) | filter:$viewValue | limitTo: 6"
+	typeahead-min-length='1'
+	typeahead-on-select='onSelectPart($item, $model, $label)'
+    typeahead-template-url="typeahead-template.html"
+	typeahead-focus-first="false"
+    maxlength="10"
+/>

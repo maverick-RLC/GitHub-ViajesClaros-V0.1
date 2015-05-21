@@ -1,0 +1,40 @@
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <script>
+            window.funcionario = <%- JSON.stringify(funcionario) %>;
+        </script>
+        <div class="modal-content" ng-controller='subscribeCTL'>
+            <form accept-charset='utf-8' enctype='multipart/form-data' class='stdform stdform2' ng-submit="submitForm()" name="myForm">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <h2>MANTENTE INFORMADO</h2>
+                    <div class="widgetbox">
+                        <div class="widgetcontent nopadding">
+                            <p>Ingresa tu correo electrónico para recibir información sobre los viajes del servidor público seleccionado y notificaciones relevantes sobre esta herramienta. Los datos personales que en su caso nos proporciones serán protegidos conforme a lo dispuesto por la Ley... <a href="/home/aviso">[Ver leyenda de información completa]</a>.</p>
+                            <p>
+                                <span class="field">
+                                    <input
+                                        type="email"
+                                        id="email" 
+                                        placeholder="mail@gmail.com" 
+                                        onfocus="this.placeholder=''"
+                                        onblur="this.placeholder='mail@gmail.com'"
+                                        name="email" class="form-control" 
+                                        ng-model='email' 
+                                        required
+                                    >
+                                </span>
+                            </p>
+                            <input type="submit" class="btn btn-primary" value='SUSCRIBIRME AHORA' ng-disabled="myForm.$invalid">
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>-->
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

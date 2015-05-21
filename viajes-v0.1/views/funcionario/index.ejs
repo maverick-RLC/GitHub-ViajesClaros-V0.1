@@ -1,0 +1,213 @@
+<div id="fb-root"></div>
+<script>
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&appId=1629957413897962&version=v2.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    window.twttr=(function(d,s,id){var t,js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);return window.twttr||(t={_e:[],ready:function(f){t._e.push(f)}})}(document,"script","twitter-wjs"));
+</script>
+
+<div id="funcionario">
+	<div class="centered-content">
+        <script type="text/javascript">
+            window.funcionario = <%- JSON.stringify(funcionario) %>;
+            window.viajes = <%- JSON.stringify(viajes) %>;
+        </script>
+		<div class="container-fluid" ng-controller="funcionarioCTL">
+			<div class="row">
+				<div class="col-lg-12">
+					<p class="breadcrumb-custom"><a href="/">Inicio</a> | <a href="/funcionario/{{funcionario.id}}" class="capitalize active">{{funcionario.nombre_completo}}</a></p>
+				</div>
+			</div>
+			<div class="row ranks">
+				<div class="col-md-6 funcionario-info">
+					<div class="inner-content">
+						<i class="icon-comicion funcionario-icon"></i> 
+						<h1>{{funcionario.nombre_completo}}</h1>
+						<p><strong>Cargo: </strong>{{funcionario.cargo_nombre != 0 ? funcionario.cargo_nombre : "no disponible"}}</p>
+						<p><strong>Institución: </strong>{{funcionario.institucion != 0 ? funcionario.institucion : "no disponible"}}</p>
+						<p><strong>Número total de viajes: {{viajes.length}}</strong></p>
+						<p><a href="" data-ng-click="toggleFuncionario(funcionario)" class="compare-action" title="Comparar"><strong><i class="icon icon-comparar"></i> <span>COMPARAR</span></strong></a></p>						
+						<p class="money"><strong count-to="{{getTotal()}}" value="{{gasto_parcial}}" duration="2" filter="currency"></strong></p>
+						<p><strong><small>Gastos hasta el momento en viajes</small></strong></p>
+						<div class="share-links">
+							<div class="row">
+								<div class="col-sm-4">
+                                    <a href="#" ng-click="fbShare('<%- fullUrl %>')" class="share-link fb"><i class="icon-face"></i> Compartir</a>
+                                    <!--<a class="fb-share-button" data-href="<%- fullUrl %>">Compartir</a>-->
+                                </div>
+								<div class="col-sm-4">
+                                    <a
+	                                    ng-href='https://twitter.com/intent/tweet/?text=Ve el perfil de {{funcionario.nombre_completo}} en &hashtags=ViajesClaros&url=<%- fullUrl %>' 
+					                  	target="_blank"
+                                	  	class="share-link tw"
+                                     >
+                                     	<i class="icon-twit"></i> 
+                                     	Compartir
+                                     </a>
+                                    <!--<a class="twitter-share-button" href="<%- fullUrl %>" data-via="twitterdev">Tweet</a>-->
+                                </div>
+								<div class="col-sm-4">
+                                    <a class="btn btn-default button-orange share-link sb" data-toggle="modal" data-target="#myModal" >Suscribirme</a>
+                                </div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 top-places">
+					<div class="inner-content table-container">
+						<div class="cell-container">
+							<h4><strong>Últimos tres viajes de trabajo</strong></h4>
+							<ul>
+								<li ng-repeat="viaje in viajes | limitTo:3">
+									<a href="/viaje/{{viaje.id}}"><img src="/images/hotel_icon.png" alt="" class="picture" /></a>
+									<p class="big-blue"><a href="/viaje/{{viaje.id}}">{{viaje.gasto_total | currency}}</a></p>
+									<p class="location"><a href="#">{{viaje.ciudad_destino}} {{viaje.pais_destino}}</a></p>
+									<p class="activity">{{viaje.evento | limitTo:50 }}...</p>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="row ranks">
+				<div class="col-md-6 percentage-rank">
+					<div class="inner-content">
+						<h4>Monto de viáticos usados a la fecha</h4>
+                    	<div class="bar-chart">
+							<canvas id="chart-horizontal" height="200" width="400"></canvas>                		
+                    	</div>
+						<p class="total">Total de viáticos hasta el dia de hoy: {{totalViaticos | currency}}</p>
+					</div>
+				</div>
+				<div class="col-md-6 percentage-rank">
+					<div class="inner-content">
+						<h4><strong>Días de comisión vs. días laborales</strong></h4>
+						<div class="charts-container">
+							<div id="radial-one" class="radial-chart"></div>
+							<div id="radial-two" class="radial-chart"></div>
+							<div class="clear"></div>
+						</div>
+						<div class="clear"></div>
+						<p class="total">Total de viajes hasta el dia de hoy: {{viajes.length}}</p>
+					</div>
+				</div>
+			</div>
+
+            <!--<div class="row ranks">-->
+                <!--<div class="col-md-6 percentage-rank">-->
+                    <!--<div class="inner-content">-->
+                        <!--<h4><strong>Monto de viáticos</strong><br/>usados hasta ahora por este servidor</h4>-->
+                        <!--<div class="bar-chart">-->
+                            <!--<canvas id="chart-horizontal" height="200" width="400"></canvas>-->
+                        <!--</div>-->
+                        <!--<p class="total">Total de viáticos hasta el dia de hoy: {{totalViaticos | currency}}</p>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<canvas style="max-width: 200px; max-height: 200px; width: 200px; height: 200px;" height="200" width="200" id="viaticos"></canvas>-->
+
+
+			<div class="row trips">
+				<div class="col-lg-12">
+	                <div class="inner-content-list">
+	    				<h2><strong>Viajes de trabajo realizados</strong></h2>
+						<div ng-if="viajes" class="map-container map-small">
+							<leaflet ng-class='mapClass' class='map' layers="layers" markers='markers' defaults='options' event-broadcast="events" center="mapCenter" ></leaflet>
+							<div class="aside" ng-show="toggleSidebar">
+								<a href ng-click="toggleAside()" class="arrow-button"></a>
+								<perfect-scrollbar class="scroller" wheel-propagation="true" wheel-speed="50" refresh-on-change="someArray" >
+									<div class="aside-inner-content">
+										<h3>Estos son los viajes en: {{mapPlace}}</h3>
+										<ul>
+				                            <li ng-repeat="item in items">
+				                                <p>Fecha del viaje: <a href="{{'/viaje/' + item.id}}">{{item.fecha_inicio_part | date}}</a></p>
+				                                <p>Funcionario: <a href="{{'/funcionario/' + item.funcionario.id}}">{{item.funcionario.nombre_completo}}</a> <a href="" ng-click="toggleFuncionario(item.funcionario)" class="comparar-button"><i class="icon icon-comparar"></i></a></p>
+				                            </li>
+
+										</ul>
+				                    </div>
+							    </perfect-scrollbar>
+							</div>	
+						</div>
+						<form>	
+							<div ng-show="viajes" class="row filter-custom">
+								<div class="col-md-4">
+									<div class="inner-content">
+										<label class="checkbox-inline">
+										  <input type="checkbox" ng-model="filterNacionales" value="nacionales"> Nacionales
+										</label>
+										<label class="checkbox-inline">
+										  <input type="checkbox" ng-model="filterInternacionales" value="internacionales"> Internacionales
+										</label>
+									</div>
+								</div>
+								<div class="col-md-1">
+									<div class="inner-content">
+										<label for="">Ordenar por:</label>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="inner-content">
+										<select ng-model="orderField" class="form-control">
+											<option value="fecha">Fecha del viaje</option>
+											<option value="ciudad_destino">Destino del viaje</option>
+											<option value="evento">Nombre del evento</option>
+											<option value="gasto_total">Costo total del viaje</option>
+											<option value="duracion">Duracion del viaje</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="inner-content">
+										<div class="radio">
+										  <label>
+										    <input type="radio" ng-model="isReversed" ng-value="false">
+										    Ascendente
+										  </label>
+										</div>
+										<div class="radio">
+										  <label>
+										    <input type="radio" ng-model="isReversed"  ng-value="true">
+										    Descendente
+										  </label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+	                    <div class="row trip-item ranks " ng-repeat="viaje in viajes | filter: filterTipo | orderBy:orderField:isReversed">
+	                        <div class="col-sm-4 top-places">
+	                            <div class="inner-content">
+	                                <a href="#"><img src="/images/pinlugar.png" alt="" class="picture" /></a>
+	                                <p class="big-blue">{{viaje.gasto_total | currency}}</p>
+	                                <p class="location"><a href="#"><strong>{{viaje.ciudad_destino}}, {{viaje.pais_destino}}</strong></a></p>
+	                                <p class="activity">{{viaje.evento | limitTo:50}}...</p>
+	                                <p class="activity">Tipo de viaje: {{viaje.tipo_viaje}}</p>
+	                            </div>
+	                        </div>
+	                        <div class="col-sm-4 duration">
+	                            <div class="inner-content">
+	                                <i class="icon-calendar"></i>
+	                                <p><strong>Duracion del viaje:</strong></p>
+	                                <p>{{getDateString(viaje)}}</p>
+	                                <p>Dias: {{getTravelDays(viaje)}}</p>
+	                            </div>
+	                        </div>
+	                        <div class="col-sm-4">
+	                            <div class="inner-content"><a href="{{'/viaje/'+viaje.id}}" class="custom-button">Ver detalle del viaje</a></div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+			</div>
+            <%- partial('partial/subscribe')%>
+		</div>
+	</div>
+</div>
+

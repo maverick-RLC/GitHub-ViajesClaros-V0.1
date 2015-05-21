@@ -1,0 +1,96 @@
+<div id="home" class="graficas">
+	<div class="centered-content">
+		<h1><i class="icon icon-graficas"></i></h1>
+		<h1>Informate con gráficas</h1>
+		<div class="container-fluid" ng-controller="statisticsCTL">
+			<div class="row ranks">
+				<div class="col-md-6 top-places top-hotels">
+					<div class="inner-content">
+						<a href="#" class="get-iframe" data-toggle="modal" data-target="#modal-code" title="Compartir gráfica" ng-click="openWidgetModal('/widget/hoteles')"><i class="icon icon-codigo"></i></a>
+						<h4><strong>Hoteles más visitados</strong><br/>por los servidores públicos</h4>
+						<ul>
+							<li ng-repeat="hotel in hotelList">
+								<a><img src="/images/hotel_icon.png" alt="" class="picture" /></a>
+								<p class="place"><a href="/viajes?hotel={{hotel.hotel}}">{{hotel.hotel}}</a></p>
+								<p class="location"><a href="#">{{hotel.ciudad_destino}}, {{hotel.pais_destino}}</a></p>
+							</li>
+						</ul>
+					</div>
+				</div>
+                <div class="col-md-6 percentage-rank">
+                    <carousel interval="6000">
+                        <slide  active="slide.active" >
+                            <div class="inner-content">
+                            	<a href="#" class="get-iframe" data-toggle="modal" data-target="#modal-code" title="Compartir gráfica" ng-click="openWidgetModal('/widget/tipos_de_viajes')"><i class="icon icon-codigo"></i></a>
+                                <h4><strong>Viajes nacionales e internacionales</strong></h4>
+                                <div class="charts-container">
+                                    <div id="radial-one" class="radial-chart" ng-click="redirectTo('/viajes?tipo_viaje=internacional')"></div>
+                                    <div id="radial-two" class="radial-chart" ng-click="redirectTo('/viajes?tipo_viaje=nacional')"></div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="clear"></div>
+                                <p class="total">Total de viajes calculados: {{totalViajes}}</p>
+                            </div>
+                        </slide>
+                        <slide active="" >
+                            <div class="inner-content">
+                            	<a href="#" class="get-iframe" data-toggle="modal" data-target="#modal-code" ng-click="openWidgetModal('/widget/tipos_de_viajes')" title="Compartir gráfica"><i class="icon icon-codigo"></i></a>
+                                <h4><strong>Viajes por tipo</strong><br/>de transportación</h4>
+                                <div class="charts-container">
+                                    <div id="radial-three" class="radial-chart" ng-click="redirectTo('/viajes?pasaje_tipo=terrestre')"></div>
+                                    <div id="radial-four" class="radial-chart" ng-click="redirectTo('/viajes?pasaje_tipo=aéreo')"></div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="clear"></div>
+                                <p class="total">Total de viajes calculados: {{totalViajes}}</p>
+                            </div>
+                        </slide>
+                    </carousel>
+                </div>
+			</div>
+			<div class="row ranks">
+                <div class="col-md-6 percentage-rank">
+                	<div class="inner-content">
+                		<a href="#" class="get-iframe" data-toggle="modal" data-target="#modal-code" title="Compartir gráfica" ng-click="openWidgetModal('/widget/aerolineas')"><i class="icon icon-codigo"></i></a>
+                    	<h4><strong>Las aerolineas más usadas</strong><br/>por los servidores públicos</h4>
+                    	<div class="bar-chart">
+							<canvas id="aerolineas-chart" height="300" width="400"></canvas>                		
+                    	</div>
+                    </div>
+                </div>
+				<div class="col-md-6 top-places">
+					<carousel interval="5000">
+						<slide  active="slide.active" >
+							<div class="inner-content">
+								<a href="#" class="get-iframe" data-toggle="modal" data-target="#modal-code" ng-click="openWidgetModal('/widget/ciudades')" title="Compartir gráfica"><i class="icon icon-codigo"></i></a>
+								<h4><strong>Ciudades Internacionales</strong><br/>más visitadas en viajes de trabajo del IFAI</h4>
+								<ul>
+									<li ng-repeat="ciudad in ciudadesList | filter:{tipo_viaje:'Internacional'} | limitTo:3">
+										<a href="#"><img src="/images/pinlugar.png" alt="" class="picture" /></a>
+										<p class="place"><a href="/viajes?ciudad_destino={{ciudad.ciudad_destino}}">{{ciudad.ciudad_destino}}</a></p>
+										<p class="location"><a href="#">{{ciudad.pais_destino}}</a></p>
+									</li>
+								</ul>
+							</div>
+						</slide>
+						<slide active="" >
+							<div class="inner-content">
+								<a href="#" class="get-iframe" data-toggle="modal" data-target="#modal-code" ng-click="openWidgetModal('/widget/ciudades')" title="Compartir gráfica"><i class="icon icon-codigo"></i></a>
+								<h4><strong>Ciudades Nacionales</strong><br/>más visitadas en viajes de trabajo del IFAI</h4>
+								<ul>
+                                    <li ng-repeat="ciudad in ciudadesList | filter:{tipo_viale:'!Internacional'} | limitTo:3">
+										<a href="#"><img src="/images/pinlugar.png" alt="" class="picture" /></a>
+                                        <p class="place"><a href="/viajes?ciudad_destino={{ciudad.ciudad_destino}}">{{ciudad.ciudad_destino}}</a></p>
+                                        <p class="location"><a href="#">{{ciudad.pais_destino}}</a></p>
+									</li>
+								</ul>
+							</div>
+						</slide>
+					</carousel>
+				</div>
+			</div>
+			<%- partial('../global/modal')%>			
+		</div>
+	</div>
+</div>
+
